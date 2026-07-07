@@ -10,6 +10,7 @@ local path = require 'path'
 local url = require 'url'
 local json = require 'json'
 local q = require 'querystring'
+local fs = require 'fs'
 
 local ocular = require 'ocular'
 local utils = require 'utils'
@@ -74,12 +75,27 @@ function fw.addRoute(route, f)
     return fw
 end
 
+-- Load cerificates
 function fw.loadCert(c, k)
-    
+    local cert, key = fs.readFileSync(c), fs.readFileSync(k)
+    fw.cert.cert = cert
+    fw.cert.key = key
     return fw
 end
 
-function fw.startServer(port, useHttps)
+function fw.bindTo(data)
+    
+    local d = {}
+    d.host = data.host or '127.0.0.1'
+    d.port = data.port
+
+    fw.bind = d
+
+
+    return fw
+end
+
+function fw.startServer(useHttps)
 
     local function cb(req, res)
         -- error('Force error crash')

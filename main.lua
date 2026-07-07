@@ -15,5 +15,8 @@ end)
 .addExtension(require './extensions/rate-limit')
 .addExtension(require './extensions/logger')
 
+.loadCert('cert.pem', 'key.pem')    -- paths to certs
+.bindTo({ host = '127.0.0.1', port = 443 })
+
 --          Port HTTPS
-.startServer(80, false)
+.startServer(true)
