@@ -21,6 +21,6 @@ end)
 .loadCert('cert.pem', 'key.pem')    -- paths to certs
 .bindTo({ host = '127.0.0.1', port = 443 })
 
---          Port HTTPS
+--         use HTTPS
 .startServer(true)
 ```
